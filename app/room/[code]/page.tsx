@@ -54,12 +54,15 @@ function RoomPageContent({
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const participantIdRef = useRef<string | null>(null);
   const initialized = useRef(false);
-
+  const transcriptsEndRef = useRef<HTMLDivElement | null>(null);
   // Keep a ref of the latest participantId for cleanup logic
   useEffect(() => {
     participantIdRef.current = participantId;
   }, [participantId]);
 
+  useEffect(() => {
+    transcriptsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [transcripts]);
   // Resolve params
   useEffect(() => {
     params.then((p) => {
@@ -515,12 +518,10 @@ function RoomPageContent({
   }
 
   return (
-    <div className="flex h-screen bg-gray-100 text-black">
-      {/* Left panel — Host / Audio */}
-      <div className="flex flex-1 flex-col">
-        {/* Audio area */}
-        <div className="flex-1 p-4">
-          <div className="grid h-full grid-cols-2 gap-4">
+<div className="flex h-screen bg-gray-100 text-black flex-col md:flex-row">      {/* Left panel — Host / Audio */}
+<div className="flex flex-col md:flex-1 h-auto md:h-full">        {/* Audio area */}
+        <div className="p-2 md:p-4 md:flex-1">
+        <div className="grid grid-cols-2 gap-2 md:gap-4 md:h-full">
             {/* LEFT: Host panel - shows the host or self */}
             <div className="relative rounded-lg bg-gray-200 overflow-hidden flex flex-col items-center justify-center">
               <div className="text-xs text-gray-500 mb-2">{isHost ? "HOST" : "YOU"}</div>
@@ -593,7 +594,7 @@ function RoomPageContent({
                     .filter((p) => p.id !== participantId)
                     .map((p) => (
                       <div key={p.id} className="flex flex-col items-center">
-                        <div className="h-20 w-20 rounded-full bg-white border-4 border-[#5048E5] flex items-center justify-center text-3xl">
+                        <div className="h-12 w-12 md:h-20 md:w-20 rounded-full bg-white border-4 border-[#5048E5] flex items-center justify-center text-3xl">
                           🎤
                         </div>
                         <div className="mt-2 text-xs">{p.name}</div>
@@ -602,7 +603,7 @@ function RoomPageContent({
                   {/* Show remote Agora users */}
                   {remoteUsers.map((u) => (
                     <div key={u.uid} className="flex flex-col items-center">
-                      <div className="h-20 w-20 rounded-full bg-white border-4 border-[#5048E5] flex items-center justify-center text-3xl">
+                      <div className="h-12 w-12 md:h-20 md:w-20 rounded-full bg-white border-4 border-[#5048E5] flex items-center justify-center text-3xl">
                         🎤
                       </div>
                       <div className="mt-2 text-xs">Participant</div>
@@ -613,7 +614,7 @@ function RoomPageContent({
               {/* Show host to participants */}
               {!isHost && meeting?.host_name && (
                 <div className="mt-4 flex flex-col items-center">
-                  <div className="h-20 w-20 rounded-full bg-white border-4 border-[#5048E5] flex items-center justify-center text-3xl">
+                  <div className="h-12 w-12 md:h-20 md:w-20 rounded-full bg-white border-4 border-[#5048E5] flex items-center justify-center text-3xl">
                     🎤
                   </div>
                   <div className="mt-2 text-xs">{meeting.host_name} (Host)</div>
@@ -643,7 +644,7 @@ function RoomPageContent({
       </div>
 
       {/* Right panel — Transcripts */}
-      <div className="flex w-96 flex-col border-l border-gray-300 bg-white">
+      <div className="flex flex-1 md:w-96 md:flex-none flex-col border-t md:border-t-0 md:border-l border-gray-300 bg-white">
         {/* Header */}
         <div className="border-b border-gray-300 p-4">
           <div className="flex items-center justify-between">
@@ -691,7 +692,9 @@ function RoomPageContent({
                 )}
               </div>
             ))
+            
           )}
+          <div ref={transcriptsEndRef} />
         </div>
       </div>
     </div>
