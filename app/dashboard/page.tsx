@@ -52,7 +52,7 @@ export default function DashboardPage() {
         router.push("/login");
         return;
       }
-      setError(err instanceof Error ? err.message : "Failed to load meetings");
+      setError(err instanceof Error ? err.message : "Failed to load sessions");
     }
     setLoading(false);
   };
@@ -71,7 +71,7 @@ export default function DashboardPage() {
         allowed_languages: ["en", "fr", "es"],
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to create meeting");
+      setError(err instanceof Error ? err.message : "Failed to create session");
     }
   };
 
@@ -80,7 +80,7 @@ export default function DashboardPage() {
       const updated = await endMeeting(meetingId);
       setMeetings(meetings.map((m) => (m.id === meetingId ? updated : m)));
     } catch (err) {
-      console.error("Failed to end meeting:", err);
+      console.error("Failed to end session:", err);
     }
   };
 
@@ -309,7 +309,7 @@ export default function DashboardPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6 shadow-lg">
             <h3 className="mb-1 text-lg font-semibold text-slate-900">
-              New meeting
+              New session
             </h3>
             <p className="mb-4 text-xs text-slate-500">
               Set up the title, description, and allowed languages for this session.

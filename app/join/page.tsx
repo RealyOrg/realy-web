@@ -69,7 +69,7 @@ function JoinPageContent() {
       setMeeting(m);
       setStep("name");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Meeting not found");
+      setError(err instanceof Error ? err.message : "Session not found");
     } finally {
       setLoading(false);
     }
@@ -96,7 +96,7 @@ function JoinPageContent() {
       });
       router.push(`/room/${meeting.code}?participantId=${participant.id}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to join meeting");
+      setError(err instanceof Error ? err.message : "Failed to join session");
     } finally {
       setLoading(false);
     }
@@ -106,9 +106,9 @@ function JoinPageContent() {
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 px-4">
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
         <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold text-gray-900">Join a Meeting</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Join a session</h1>
           <p className="mt-2 text-sm text-gray-600">
-            Enter the meeting code provided by the host
+            Enter the session code provided by the host
           </p>
         </div>
 
@@ -125,7 +125,7 @@ function JoinPageContent() {
                 htmlFor="code"
                 className="block text-sm font-medium text-gray-700"
               >
-                Meeting Code
+                Session Code
               </label>
               <input
                 id="code"
@@ -152,7 +152,7 @@ function JoinPageContent() {
         {step === "name" && meeting && (
           <form onSubmit={handleJoin} className="space-y-4">
             <div className="mb-4 rounded-md bg-green-50 p-3 text-sm text-green-700">
-              Meeting found: <strong>{meeting.title}</strong>
+              Session: <strong>{meeting.title}</strong>
             </div>
 
             <div>
@@ -213,14 +213,14 @@ function JoinPageContent() {
                 disabled={loading || !name}
                 className="flex-1 rounded-md bg-[#5048E5] px-4 py-2 font-medium text-white hover:bg-[#4338ca] focus:outline-none focus:ring-2 focus:ring-[#5048E5] focus:ring-offset-2 disabled:opacity-50"
               >
-                {loading ? "Joining..." : "Join Meeting"}
+                {loading ? "Joining..." : "Join Session"}
               </button>
             </div>
           </form>
         )}
 
         <p className="mt-6 text-center text-sm text-gray-600">
-          Hosting a meeting?{" "}
+          Hosting a session?{" "}
           <Link
             href="/login"
             className="font-medium text-[#5048E5] hover:underline"
