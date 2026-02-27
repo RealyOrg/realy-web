@@ -684,9 +684,9 @@ function RoomPageContent({
                   </span>
                 </div>
                 <p className="text-sm text-gray-700">{t.original_text}</p>
-                {t.translations[selectedLanguage] && (
+                {t.translations?.[selectedLanguage] && (
                   <p className="mt-1 text-sm font-medium text-black">
-                    {t.translations[selectedLanguage]}
+                    {t.translations?.[selectedLanguage]}
                   </p>
                 )}
               </div>

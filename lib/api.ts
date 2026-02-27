@@ -7,7 +7,7 @@
  * - Throws on non-2xx responses with the server's error detail
  */
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:https://huggingface.co/spaces/JPASJP/realy-api";
 
 // ── Token helpers ─────────────────────────────────────────────────────────────
 
